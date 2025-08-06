@@ -5,14 +5,17 @@ const recipeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  ingredients: [String],
+  ingredients: {
+    type: [String],
+    required: true,
+  },
   instructions: {
     type: String,
     required: true,
   },
   location: String,
   photo: String,
-  CreatedBy: {
+  createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },

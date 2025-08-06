@@ -12,6 +12,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  passwordHash: {
+    type: String,
+    required: true,
+  },
   bio: String,
   createdAt: {
     type: Date,
@@ -19,4 +23,4 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model("User", userSchema);
