@@ -36,11 +36,25 @@ export default function HomePage() {
 
   return (
     <div>
-      <h1 style={{ display: "flex", justifyContent: "center" }}>Traveler's Recipe Journal</h1>
+      <h1
+        style={{ display: "flex", justifyContent: "center" }}
+        className="page-title"
+      >
+        Traveler's Recipe Journal
+      </h1>
       {recipes.length === 0 && <p>No recipes yet. Click “Add Recipe”.</p>}
       {recipes.map((r) => (
         <div style={{}}>
-          <article key={r._id} className="ca-card">
+          <article
+            key={r._id}
+            className="ca-card"
+            style={{
+              textAlign: "center",
+              border: "1px solid navy-blue",
+              backgroundColor: "rgba(255, 255, 255, 0.3)",
+              margin: "30px",
+            }}
+          >
             <h3>{r.title}</h3>
             <p>
               <b>Ingredients:</b> {r.ingredients}
@@ -48,7 +62,14 @@ export default function HomePage() {
             <p>
               <b>Instructions:</b> {r.instructions}
             </p>
-            <div style={{display: "flex", gap: 25, margin: "10px" }}>
+            <div
+              style={{
+                display: "flex",
+                gap: 25,
+                margin: "10px",
+                justifyContent: "end",
+              }}
+            >
               <button style={{ alignContent: "center" }} className="update-btn">
                 <Link to={`/edit/${r._id}`}>Update</Link>
               </button>
