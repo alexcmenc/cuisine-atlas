@@ -16,16 +16,14 @@ const allowedOrigins = [
 
 app.use(
   cors({
-    origin: (origin, cb) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        return cb(null, true);
-      }
-      return cb(new Error("Not allowed by CORS"));
-    },
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+app.options("*", cors());
+
 app.use(express.json());
 
 app.use("/api/recipes", recipeRoutes);
