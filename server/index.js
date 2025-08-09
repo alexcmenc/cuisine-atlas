@@ -14,13 +14,7 @@ const allowedOrigins = [
   "https://cuisineatlas.netlify.app/",
 ];
 
-app.use(
-  cors({
-    origin: allowedOrigins,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+app.use(cors());
 
 app.options("*", cors());
 
