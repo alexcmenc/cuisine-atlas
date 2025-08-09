@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { api } from "../lib/api.js";
 
-const API = import.meta.env.VITE_API_URL;
-const RECIPES = "/api/recipes"; // <-- change to "/recipes" if your backend has no /api
+const RECIPES = "/api/recipes";
 
 export default function EditRecipe() {
   const { id } = useParams();
@@ -18,9 +18,7 @@ export default function EditRecipe() {
   useEffect(() => {
     (async () => {
       try {
-        const r = await fetch(`${API}${RECIPES}/${id}`);
-        if (!r.ok) throw new Error(await r.text());
-        const data = await r.json();
+        const data = await api(`${RECIPES}/${id}`);
         setForm({
           title: data.title || "",
           ingredients: data.ingredients || "",
@@ -37,12 +35,10 @@ export default function EditRecipe() {
   const submit = async (e) => {
     e.preventDefault();
     try {
-      const r = await fetch(`${API}${RECIPES}/${id}`, {
+      await api(`${RECIPES}/${id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      if (!r.ok) throw new Error(await r.text());
       navigate("/");
     } catch (e) {
       alert(`Update failed: ${e.message || e}`);

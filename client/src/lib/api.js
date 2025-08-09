@@ -1,6 +1,7 @@
+// client/src/lib/api.js
 export const API_URL = import.meta.env.VITE_API_URL;
 
-export async function api(path: string, init?: RequestInit) {
+export async function api(path, init) {
   const res = await fetch(`${API_URL}${path}`, {
     headers: {
       "Content-Type": "application/json",
@@ -8,9 +9,6 @@ export async function api(path: string, init?: RequestInit) {
     },
     ...init,
   });
-
-  if (!res.ok) {
-    throw new Error(await res.text());
-  }
+  if (!res.ok) throw new Error(await res.text());
   return res.json();
 }

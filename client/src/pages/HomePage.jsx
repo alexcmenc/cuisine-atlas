@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { api } from "../lib/api.js";
 
-const API = import.meta.env.VITE_API_URL;
 const RECIPES = "/api/recipes";
 
 export default function HomePage() {
@@ -12,9 +12,7 @@ export default function HomePage() {
   useEffect(() => {
     (async () => {
       try {
-        const r = await fetch(`${API}${RECIPES}`);
-        if (!r.ok) throw new Error(await r.text());
-        const data = await r.json();
+        const data = await api(RECIPES); // <-- use api helper
         setRecipes(data);
       } catch (e) {
         setErr(e.message || "Failed to load recipes");
@@ -25,8 +23,12 @@ export default function HomePage() {
   }, []);
 
   const handleDelete = async (id) => {
-    await fetch(`${API}${RECIPES}/${id}`, { method: "DELETE" });
-    setRecipes((prev) => prev.filter((r) => r._id !== id));
+    try {
+      await api(`${RECIPES}/${id}`, { method: "DELETE" }); // <-- use api helper
+      setRecipes((prev) => prev.filter((r) => r._id !== id));
+    } catch (e) {
+      alert(e.message || "Delete failed");
+    }
   };
 
   if (loading) return <p>Loading...</p>;
@@ -34,7 +36,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <h1>Traveler&apos;s Recipe Journal</h1>
+      <h1>Traveler's Recipe Journal</h1>
       {recipes.length === 0 && <p>No recipes yet. Click “Add Recipe”.</p>}
       {recipes.map((r) => (
         <article key={r._id} className="ca-card">

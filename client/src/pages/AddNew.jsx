@@ -1,27 +1,29 @@
 // src/pages/AddNew.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { api } from "../lib/api.js"; 
 
-const API = import.meta.env.VITE_API_URL;
 const RECIPES = "/api/recipes"; 
 
 export default function AddNew() {
-  const [form, setForm] = useState({ title: "", ingredients: "", instructions: "" });
+  const [form, setForm] = useState({
+    title: "",
+    ingredients: "",
+    instructions: "",
+  });
   const navigate = useNavigate();
 
   const submit = async (e) => {
     e.preventDefault();
-    const res = await fetch(`${API}${RECIPES}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    if (!res.ok) {
-      const msg = await res.text();
-      alert(`Create failed: ${msg}`);
-      return;
+    try {
+      await api(RECIPES, {
+        method: "POST",
+        body: JSON.stringify(form),
+      });
+      navigate("/");
+    } catch (e) {
+      alert(`Create failed: ${e.message || e}`);
     }
-    navigate("/");
   };
 
   return (
