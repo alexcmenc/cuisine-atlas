@@ -10,11 +10,17 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = [
-  "http://localhost:5173", // dev
-  "https://cuisineatlas.netlify.app/",
+  "http://localhost:5173",
+  "https://cuisineatlas.netlify.app",
 ];
 
-app.use(cors());
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.options("*", cors());
 
@@ -25,6 +31,8 @@ app.use("/api/recipes", recipeRoutes);
 app.get("/", (req, res) => {
   res.send("Hello from Traveler's Recipe Journal API");
 });
+
+app.get("/health", (_req, res) => res.send("ok"));
 
 mongoose
   .connect(process.env.MONGO_URI)
