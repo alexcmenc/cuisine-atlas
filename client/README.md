@@ -1,12 +1,39 @@
-# React + Vite
+# 🍽️ Cuisine Atlas  
+**Your Passport to Authentic Taste**  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Cuisine Atlas is a full-stack web application where travelers can store, manage, and share recipes from different places they’ve visited. It features a React frontend (Netlify) and an Express + MongoDB backend (Render).  
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📌 Features  
+- ➕ Add new recipes with ingredients and instructions  
+- ✏️ Edit existing recipes  
+- 🗑️ Delete recipes  
+- 🎨 Modern, responsive UI with styled buttons and cards  
+- 🌍 Fully deployed with a live frontend and backend  
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack  
+
+**Frontend**  
+- React (Vite)  
+- CSS  
+
+**Backend**  
+- Node.js  
+- Express.js  
+- MongoDB Atlas (via Mongoose)  
+
+**Deployment**  
+- Frontend: Netlify  
+- Backend: Render  
+
+---
+
+## ⚙️ Installation  
+
+### 1️⃣ Clone the repository  
+```bash
+git clone https://github.com/yourusername/cuisine-atlas.git
+cd cuisine-atlas
