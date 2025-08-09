@@ -36,22 +36,32 @@ export default function HomePage() {
 
   return (
     <div>
-      <h1>Traveler's Recipe Journal</h1>
+      <h1 style={{ display: "flex", justifyContent: "center" }}>Traveler's Recipe Journal</h1>
       {recipes.length === 0 && <p>No recipes yet. Click “Add Recipe”.</p>}
       {recipes.map((r) => (
-        <article key={r._id} className="ca-card">
-          <h3>{r.title}</h3>
-          <p>
-            <b>Ingredients:</b> {r.ingredients}
-          </p>
-          <p>
-            <b>Instructions:</b> {r.instructions}
-          </p>
-          <div style={{ display: "flex", gap: 8 }}>
-            <Link to={`/edit/${r._id}`}>Edit</Link>
-            <button onClick={() => handleDelete(r._id)}>Delete</button>
-          </div>
-        </article>
+        <div style={{}}>
+          <article key={r._id} className="ca-card">
+            <h3>{r.title}</h3>
+            <p>
+              <b>Ingredients:</b> {r.ingredients}
+            </p>
+            <p>
+              <b>Instructions:</b> {r.instructions}
+            </p>
+            <div style={{display: "flex", gap: 25, margin: "10px" }}>
+              <button style={{ alignContent: "center" }} className="update-btn">
+                <Link to={`/edit/${r._id}`}>Update</Link>
+              </button>
+              <button
+                onClick={() => handleDelete(r._id)}
+                className="delete-btn"
+                style={{ padding: "10px" }}
+              >
+                Delete
+              </button>
+            </div>
+          </article>
+        </div>
       ))}
     </div>
   );
