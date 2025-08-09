@@ -1,0 +1,210 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  position: relative;
+}
+
+/* Watermark layer */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("../public/bg.png") no-repeat center;
+  background-size: 95vmin; /* try 95–120vmin until it feels right */
+  opacity: 0.6; /* adjust faintness */
+  pointer-events: none;
+  z-index: -1;
+}
+.ca-container {
+  width: min(1100px, 92%);
+  margin: 28px auto;
+}
+.ca-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+/* ===== Navbar ===== */
+.ca-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  backdrop-filter: saturate(1.2) blur(6px);
+  background: linear-gradient(
+    90deg,
+    rgba(47, 78, 246, 0.12),
+    rgba(36, 194, 167, 0.12)
+  );
+  border-bottom: 1px solid var(--ca-border);
+}
+.ca-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(1100px, 92%);
+  margin: 0 auto;
+  padding: 10px 0;
+}
+.ca-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+.ca-logo {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+.ca-tagline {
+  font-size: 0.9rem;
+  color: var(--ca-muted);
+}
+.ca-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ca-links a {
+  color: #111827;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+.ca-links a:hover {
+  background: rgba(47, 78, 246, 0.08);
+}
+
+/* CTA */
+.ca-btn {
+  background: linear-gradient(135deg, var(--ca-blue), var(--ca-mint));
+  color: #fff !important;
+  border: 0;
+  padding: 8px 14px !important;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(47, 78, 246, 0.25);
+  transition: transform 0.08s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+.ca-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(47, 78, 246, 0.32);
+  filter: brightness(1.03);
+}
+
+/* ===== Cards ===== */
+.ca-card {
+  background: var(--ca-surface);
+  border: 1px solid var(--ca-border);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 8px 24px rgba(32, 44, 109, 0.06);
+  transition: transform 0.12s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.ca-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(32, 44, 109, 0.12);
+  border-color: rgba(47, 78, 246, 0.25);
+}
+.ca-meta {
+  color: var(--ca-muted);
+  font-size: 0.92rem;
+  margin: 0.25rem 0 0.75rem;
+}
+
+/* ===== Inline actions ===== */
+.ca-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.ca-link,
+.ca-danger {
+  border: 1px solid var(--ca-border);
+  background: #fff;
+  color: #111827;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.ca-link:hover {
+  border-color: var(--ca-blue);
+}
+.ca-danger {
+  color: #b91c1c;
+}
+.ca-danger:hover {
+  border-color: #ef4444;
+}
+
+/* ===== Forms ===== */
+.ca-form {
+  background: var(--ca-surface);
+  border: 1px solid var(--ca-border);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 8px 24px rgba(32, 44, 109, 0.06);
+  width: min(760px, 100%);
+}
+.ca-field {
+  display: grid;
+  gap: 6px;
+  margin: 12px 0;
+}
+.ca-label {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.ca-input,
+.ca-textarea {
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid var(--ca-border);
+  border-radius: 12px;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.ca-input:focus,
+.ca-textarea:focus {
+  border-color: var(--ca-blue);
+  box-shadow: 0 0 0 5px rgba(47, 78, 246, 0.12);
+}
+.ca-textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+.ca-submit {
+  margin-top: 10px;
+  background: linear-gradient(135deg, var(--ca-blue), var(--ca-mint));
+  color: #fff;
+  font-weight: 800;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(47, 78, 246, 0.25);
+}
+.ca-submit:hover {
+  filter: brightness(1.05);
+}
+
+@media (max-width: 640px) {
+  .ca-tagline {
+    display: none;
+  }
+  .ca-links a {
+    padding: 6px 8px;
+  }
+}
+footer {
+  margin-bottom: 0;
+}
