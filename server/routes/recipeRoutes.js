@@ -1,81 +1,38 @@
-const express = require("express");
-const router = express.Router();
-const Recipe = require("../models/Recipe");
-const verifyToken = require("../middleware/authMiddleware");
+import { Router } from "express";
+import Recipe from "../models/Recipe.js";
 
-router.post("/", verifyToken, async (req, res) => {
-  try {
-    const { title, ingredients, instructions, location, photo } = req.body;
+const router = Router();
 
-    const newRecipe = await Recipe.create({
-      title,
-      ingredients,
-      instructions,
-      location,
-      photo,
-      createdBy: req.user.id,
-    });
-
-    res.status(201).json(newRecipe);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+// READ all
+router.get("/", async (_req, res) => {
+  const recipes = await Recipe.find().sort({ createdAt: -1 });
+  res.json(recipes);
 });
 
-router.get("/", async (req, res) => {
-  try {
-    const recipes = await Recipe.find().populate("createdBy", "username");
-    res.json(recipes);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
+// READ one
 router.get("/:id", async (req, res) => {
-  try {
-    const recipe = await Recipe.findById(req.params.id).populate(
-      "createdBy",
-      "username"
-    );
-    if (!recipe) return res.status(404).json({ error: "Recipe not found" });
-    res.json(recipe);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+  const recipe = await Recipe.findById(req.params.id);
+  res.json(recipe);
 });
 
-router.put("/:id", verifyToken, async (req, res) => {
-  try {
-    const recipe = await Recipe.findById(req.params.id);
-    if (!recipe) return res.status(404).json({ error: "Recipe not found" });
-
-    if (recipe.createdBy.toString() !== req.user.id) {
-      return res.status(403).json({ error: "Unauthorized" });
-    }
-
-    const updated = await Recipe.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-    res.json(updated);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+// CREATE
+router.post("/", async (req, res) => {
+  const created = await Recipe.create(req.body);
+  res.status(201).json(created);
 });
 
-router.delete("/:id", verifyToken, async (req, res) => {
-  try {
-    const recipe = await Recipe.findById(req.params.id);
-    if (!recipe) return res.status(404).json({ error: "Recipe not found" });
-
-    if (recipe.createdBy.toString() !== req.user.id) {
-      return res.status(403).json({ error: "Unauthorized" });
-    }
-
-    await recipe.deleteOne();
-    res.json({ message: "Recipe deleted" });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+// UPDATE
+router.put("/:id", async (req, res) => {
+  const updated = await Recipe.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+  res.json(updated);
 });
 
-module.exports = router;
+// DELETE
+router.delete("/:id", async (req, res) => {
+  await Recipe.findByIdAndDelete(req.params.id);
+  res.json({ message: "Deleted" });
+});
+
+export default router;
